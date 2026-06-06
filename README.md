@@ -1,147 +1,42 @@
-EDIS (Enterprise Decision Infrastructure System)
+# EDI Labs
 
-Trust Infrastructure for Autonomous Enterprises
+## Enterprise Decision Infrastructure
 
-AI deployment fails because trust is a systems problem.
+Enterprises have systems of record for data, transactions, customers, and work.
 
-LLMs can generate convincing output.
+They do not have systems of record for decisions.
 
-That is the easy part.
+As organizations deploy increasingly autonomous AI systems, the bottleneck is no longer intelligence.
 
-Real deployment fails because systems need:
+The bottleneck is decision quality.
 
-uncertainty handling
-intervention logic
-escalation
-human override
-workflow compatibility
-explicit accountability
+How decisions are evaluated.
 
-This project explores that problem.
+How risk is managed.
 
-What I am buiding
+How accountability is maintained.
 
-A governed AI decision execution system.
+How outcomes are learned from over time.
 
-Instead of:
+EDI Labs is building Enterprise Decision Infrastructure—the trust, memory, and execution layer that enables organizations to govern, execute, and continuously improve decisions made by humans and autonomous AI systems.
 
-input → model → answer
+## Long-Term Vision
 
-the system does:
+The long-term opportunity is not better AI outputs.
 
-context
-→ structured reasoning
-→ confidence assessment
-→ trust controls
-→ escalation decision
-→ human approval gating
-→ workflow routing
-→ execution output
+The opportunity is creating persistent organizational decision memory.
 
-Goal:
+Every significant enterprise decision generates:
 
-useful decisions under operational constraints.
+* Context
+* Assumptions
+* Reasoning
+* Approvals
+* Actions
+* Outcomes
 
-Core problem attacked
+Today, most of that intelligence disappears.
 
-A chatbot can sound intelligent.
+We believe future organizations will maintain a continuously evolving system of record for decisions, enabling humans and AI systems to learn from accumulated organizational experience.
 
-A useful operational AI system must answer harder questions:
-
-When should AI defer?
-
-When must humans intervene?
-
-What conditions trigger escalation?
-
-How does intelligence fit existing workflows?
-
-Who owns the final decision?
-
-That is what this system explores.
-
-Current implementation
-
-Implemented:
-
-enterprise context ingestion
-LLM reasoning workflows
-confidence threshold logic
-trust-aware intervention controls
-escalation routing
-human review gating
-workflow action orchestration
-executive decision output generation
-
-Stack:
-
-Python
-Streamlit
-LLM APIs
-orchestration logic
-workflow control layer
-
-Example execution
-
-Input:
-{
-  "opportunity_value": 2500000,
-  "stakeholder_risk": "high",
-  "technical_complexity": "medium",
-  "deadline_hours": 48
-}
-System behavior:
-
-analyze context
-assess confidence
-apply trust rules
-determine escalation
-require human approval if needed
-generate execution guidance
-
-Output:
-Confidence: Moderate
-Escalation: Required
-Human Approval: Required
-
-Recommended Action:
-Executive alignment before advancing commitment.
-
-Architecture
-
-Enterprise Inputs
-      ↓
-Context Processing
-      ↓
-Reasoning Layer
-      ↓
-Confidence Evaluation
-      ↓
-Trust Controls
-      ↓
-Escalation Logic
-      ↓
-Human Review Gate
-      ↓
-Workflow Routing
-      ↓
-Decision Output
-
-Why this is interesting
-
-The interesting AI problem is not text generation.
-
-It is building systems that remain useful when uncertainty, risk, and human accountability matter.
-
-Future extensions
-multi-agent orchestration
-memory-aware context
-policy enforcement
-audit trails
-governed autonomy
-enterprise connectors
-Build philosophy
-
-AI should not be trusted by default.
-
-Trust should be engineered.
+Enterprise Decision Infrastructure is the foundation for that future.
