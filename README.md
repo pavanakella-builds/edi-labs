@@ -1,4 +1,4 @@
-Enterprise AI Decision Intelligence System
+EDI Labs
 
 AI deployment fails because trust is a systems problem.
 
