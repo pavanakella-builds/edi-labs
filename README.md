@@ -1,4 +1,6 @@
-EDI Labs
+EDIS (Enterprise Decision Infrastructure System)
+
+Trust Infrastructure for Autonomous Enterprises
 
 AI deployment fails because trust is a systems problem.
 
