@@ -2,7 +2,16 @@
 
 ## Enterprise Decision Infrastructure
 
-Enterprises have systems of record for data, transactions, customers, and work.
+Trust, Memory and Execution Layer for Autonomous Enterprises
+
+### Problem
+
+Enterprises have systems of record for:
+
+* Data
+* Transactions
+* Customers
+* Work
 
 They do not have systems of record for decisions.
 
@@ -18,25 +27,56 @@ How accountability is maintained.
 
 How outcomes are learned from over time.
 
-EDI Labs is building Enterprise Decision Infrastructure—the trust, memory, and execution layer that enables organizations to govern, execute, and continuously improve decisions made by humans and autonomous AI systems.
+### Prototype
 
-## Long-Term Vision
+The Enterprise Decision Ledger demonstrates:
 
-The long-term opportunity is not better AI outputs.
+* Enterprise Context Ingestion
+* Decision Evaluation
+* Confidence Scoring
+* Trust Controls
+* Escalation Routing
+* Human Oversight
+* Persistent Decision Memory
 
-The opportunity is creating persistent organizational decision memory.
+### Current Workflow
 
-Every significant enterprise decision generates:
+Enterprise Context
 
-* Context
-* Assumptions
-* Reasoning
-* Approvals
-* Actions
-* Outcomes
+↓
 
-Today, most of that intelligence disappears.
+Decision Evaluation
 
-We believe future organizations will maintain a continuously evolving system of record for decisions, enabling humans and AI systems to learn from accumulated organizational experience.
+↓
 
-Enterprise Decision Infrastructure is the foundation for that future.
+Confidence Assessment
+
+↓
+
+Trust Controls
+
+↓
+
+Escalation Routing
+
+↓
+
+Human Oversight
+
+↓
+
+Enterprise Decision Ledger
+
+### Long-Term Vision
+
+Decision Memory
+
+↓
+
+Decision Intelligence
+
+↓
+
+Organizational Intelligence
+
+EDI Labs is exploring Enterprise Decision Infrastructure as the trust, memory, and execution layer for autonomous enterprises.
