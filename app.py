@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import streamlit as st
 import sqlite3
 import pandas as pd
@@ -721,4 +720,4 @@ st.dataframe(
     df,
     use_container_width=True
 )
->>>>>>> 50f210bd86963ebefbf3865fa381bafd35c9adc3
+
