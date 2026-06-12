@@ -1,7 +1,6 @@
 import streamlit as st
 import sqlite3
 import pandas as pd
-from datetime import datetime
 
 # --------------------------------------------------
 # PAGE CONFIG
@@ -124,7 +123,6 @@ def update_outcome(
 
     conn.commit()
 
-
 # --------------------------------------------------
 # HEADER
 # --------------------------------------------------
@@ -132,15 +130,48 @@ def update_outcome(
 st.title("EDI Labs")
 
 st.subheader(
-    "Organizational Learning Infrastructure"
+    "Enterprise Decision Infrastructure"
 )
 
-st.write(
+st.caption(
+    "Exploring whether organizations need systems of record for decisions in the age of autonomous AI."
+)
+
+st.markdown(
     """
-Capture decisions.
-Track assumptions.
-Measure outcomes.
-Compound intelligence.
+### Organizations have systems of record for:
+
+• Customers
+
+• Transactions
+
+• Work
+
+• Data
+
+# They do not have systems of record for decisions.
+"""
+)
+
+st.info(
+    """
+Organizations can usually answer:
+
+✓ What happened?
+
+✓ Who did it?
+
+✓ When did it happen?
+
+Organizations often struggle to answer:
+
+✕ Why was a decision made?
+
+✕ Which assumptions drove it?
+
+✕ Which assumptions proved wrong?
+
+✕ What should future teams learn?
 """
 )
 
@@ -168,52 +199,72 @@ with tab1:
     st.header("The Decision Record")
 
     title = st.text_input(
-        "Title",
-        placeholder="Anthropic + AWS Accelerator Application"
+        "Decision Title",
+        placeholder="Enter decision title"
+    )
+
+    st.caption(
+        """
+Examples:
+
+• Enterprise AI Transformation
+
+• Strategic Partnership
+
+• Vendor Selection
+
+• Capital Allocation
+
+• Product Launch
+
+• Autonomous Agent Deployment
+"""
     )
 
     situation = st.text_area(
-        "Situation",
+        "Context",
         placeholder="""
-Describe the situation that led to this decision.
+Describe the business context, stakeholders, constraints, and factors influencing this decision.
 """
     )
 
     decision = st.text_area(
         "Decision",
         placeholder="""
-What decision was made?
+Describe the decision being considered.
 """
     )
 
     assumptions = st.text_area(
         "Assumptions",
         placeholder="""
-What must be true for this decision to succeed?
+What assumptions must be true for this decision to succeed?
 
-Example:
-- Enterprise demand exists
-- Claude improves decision quality
-- Buyers value organizational learning
+Examples:
+
+- Market demand exists
+- Adoption targets are realistic
+- Required resources are available
+- Regulatory conditions remain favorable
 """
     )
 
     expected_outcome = st.text_area(
         "Expected Outcome",
         placeholder="""
-What do we expect to happen?
+What outcome do you expect if these assumptions prove correct?
 """
     )
 
     evidence = st.text_area(
         "Evidence",
         placeholder="""
-Links, decks, documents, research, notes.
+Links, research, decks, documents, supporting information.
 """
     )
 
     if st.button(
-        "Create Learning Record",
+        "Save Decision Record",
         use_container_width=True
     ):
 
@@ -224,7 +275,7 @@ Links, decks, documents, research, notes.
         ):
 
             st.error(
-                "Title, Situation and Decision are required."
+                "Decision Title, Context and Decision are required."
             )
 
         else:
@@ -239,33 +290,7 @@ Links, decks, documents, research, notes.
             )
 
             st.success(
-                "Learning Record Created Successfully"
-            )
-
-            st.subheader("Record Summary")
-
-            st.code(
-f"""
-TITLE
-
-{title}
-
-SITUATION
-
-{situation}
-
-DECISION
-
-{decision}
-
-ASSUMPTIONS
-
-{assumptions}
-
-EXPECTED OUTCOME
-
-{expected_outcome}
-"""
+                "Decision Record Created"
             )
 
 # ==================================================
@@ -274,12 +299,12 @@ EXPECTED OUTCOME
 
 with tab2:
 
-    st.header("Enterprise Learning Repository")
+    st.header("Decision Repository")
 
     df = load_records()
 
     st.metric(
-        "Total Learning Records",
+        "Total Decision Records",
         len(df)
     )
 
@@ -294,20 +319,20 @@ with tab2:
 
 with tab3:
 
-    st.header("Outcome Review")
+    st.header("Reality Check")
 
     df = load_records()
 
     if len(df) == 0:
 
         st.info(
-            "No Learning Records available."
+            "No Decision Records available."
         )
 
     else:
 
         record_id = st.selectbox(
-            "Select Learning Record",
+            "Select Decision Record",
             df["id"].tolist()
         )
 
@@ -338,7 +363,7 @@ with tab3:
         )
 
         if st.button(
-            "Save Outcome Review",
+            "Save Reality Check",
             use_container_width=True
         ):
 
@@ -349,7 +374,7 @@ with tab3:
             )
 
             st.success(
-                "Outcome Review Saved"
+                "Decision Memory Updated"
             )
 
 # ==================================================
@@ -362,25 +387,46 @@ with tab4:
 
     st.info(
         """
-Future Organizational Intelligence Layer
+Future Decision Intelligence Layer
 
 Examples:
 
-• Have we seen this before?
+• Why did similar decisions fail?
 
-• Which assumptions repeatedly fail?
+• Which assumptions repeatedly break?
 
 • What have we learned about partnerships?
 
-• What patterns exist across strategic decisions?
+• What should future teams know?
 
-This will become the Claude-powered retrieval layer.
+• Which decisions created the most value?
+
+This will become the retrieval layer for organizational decision memory.
 """
-    )
+    )st.info(
+    """
+Future Enterprise Retrieval Layer
+
+Examples:
+
+• Should we deploy autonomous agents into production?
+
+• Why did previous AI transformation initiatives fail?
+
+• Which assumptions repeatedly break across strategic programs?
+
+• What have we learned from high-risk enterprise decisions?
+
+• Which decisions created durable organizational value?
+
+This prototype demonstrates how organizational decision memory
+can become queryable intelligence.
+"""
+)
 
     question = st.text_input(
-        "Ask EDI",
-        placeholder="What have we learned about partnerships?"
+        "Ask Decision Memory",
+        placeholder="Which assumptions repeatedly failed across strategic decisions?"
     )
 
     if question:
@@ -390,7 +436,7 @@ This will become the Claude-powered retrieval layer.
         if len(df) == 0:
 
             st.warning(
-                "No Learning Records available."
+                "No Decision Records available."
             )
 
         else:
@@ -422,7 +468,7 @@ This will become the Claude-powered retrieval layer.
             if len(matches) == 0:
 
                 st.write(
-                    "No matching learning records found."
+                    "No matching decision records found."
                 )
 
             else:
@@ -438,7 +484,7 @@ This will become the Claude-powered retrieval layer.
                     ):
 
                         st.write(
-                            f"**Situation:** {row['situation']}"
+                            f"**Context:** {row['situation']}"
                         )
 
                         st.write(
@@ -448,543 +494,3 @@ This will become the Claude-powered retrieval layer.
                         st.write(
                             f"**Learning:** {row['learning']}"
                         )
-
-import streamlit as st
-import sqlite3
-import pandas as pd
-
-# --------------------------------------------------
-# DATABASE CONNECTION
-# --------------------------------------------------
-
-conn = sqlite3.connect(
-    "decisions.db",
-    check_same_thread=False
-)
-
-cursor = conn.cursor()
-
-# --------------------------------------------------
-# DECISION MEMORY TABLE
-# --------------------------------------------------
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS decisions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    decision_description TEXT,
-    opportunity_value REAL,
-    stakeholder_risk TEXT,
-    technical_complexity TEXT,
-    deadline_hours INTEGER,
-    confidence REAL,
-    escalation TEXT,
-    approval TEXT
-)
-""")
-
-conn.commit()
-
-# --------------------------------------------------
-# PAGE HEADER
-# --------------------------------------------------
-
-st.title("EDI Labs")
-
-st.subheader(
-    "Enterprise Decision Infrastructure"
-)
-
-st.write(
-    "Trust, Memory and Execution Layer for Autonomous Enterprises"
-)
-
-st.markdown("---")
-
-# --------------------------------------------------
-# ENTERPRISE CONTEXT
-# --------------------------------------------------
-
-st.header("Enterprise Context")
-
-decision_description = st.text_input(
-    "Decision Description",
-    placeholder="Approve Strategic Partner Agreement"
-)
-
-opportunity_value = st.number_input(
-    "Opportunity Value ($)",
-    min_value=0,
-    value=2500000
-)
-
-stakeholder_risk = st.selectbox(
-    "Stakeholder Risk",
-    ["Low", "Medium", "High"]
-)
-
-technical_complexity = st.selectbox(
-    "Technical Complexity",
-    ["Low", "Medium", "High"]
-)
-
-deadline_hours = st.number_input(
-    "Deadline (Hours)",
-    min_value=1,
-    value=48
-)
-
-st.markdown("---")
-
-# --------------------------------------------------
-# EVALUATE DECISION
-# --------------------------------------------------
-
-if st.button("Evaluate Decision"):
-
-    st.subheader("Decision Evaluation")
-
-    st.code(
-f"""
-INPUT
-
-decision_description  {decision_description}
-
-opportunity_value     ${opportunity_value:,.0f}
-
-stakeholder_risk      {stakeholder_risk.upper()}
-
-technical_complexity  {technical_complexity.upper()}
-
-deadline_hours        {deadline_hours}
-"""
-    )
-
-    st.subheader("Decision Evaluation Pipeline")
-
-    st.success("✓ Enterprise Context Ingested")
-
-    st.success("✓ Confidence Evaluation Completed")
-
-    st.success("✓ Trust Controls Applied")
-
-    st.success("✓ Escalation Assessment Completed")
-
-    st.success("✓ Human Oversight Requirement Determined")
-
-    # --------------------------------------------------
-    # CONFIDENCE LOGIC
-    # --------------------------------------------------
-
-    if stakeholder_risk == "High":
-        confidence = 0.61
-
-    elif stakeholder_risk == "Medium":
-        confidence = 0.78
-
-    else:
-        confidence = 0.92
-
-    # --------------------------------------------------
-    # ESCALATION LOGIC
-    # --------------------------------------------------
-
-    threshold = 0.75
-
-    if confidence < threshold:
-        escalation = "REQUIRED"
-    else:
-        escalation = "NOT REQUIRED"
-
-    # --------------------------------------------------
-    # HUMAN APPROVAL
-    # --------------------------------------------------
-
-    if stakeholder_risk == "High":
-        approval = "REQUIRED"
-    else:
-        approval = "OPTIONAL"
-
-    # --------------------------------------------------
-    # SAVE DECISION TO MEMORY
-    # --------------------------------------------------
-
-    cursor.execute(
-        """
-        INSERT INTO decisions (
-            decision_description,
-            opportunity_value,
-            stakeholder_risk,
-            technical_complexity,
-            deadline_hours,
-            confidence,
-            escalation,
-            approval
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        """,
-        (
-            decision_description,
-            opportunity_value,
-            stakeholder_risk,
-            technical_complexity,
-            deadline_hours,
-            confidence,
-            escalation,
-            approval
-        )
-    )
-
-    conn.commit()
-
-    st.success("Decision Saved To Enterprise Decision Ledger")
-
-    st.markdown("---")
-
-    # --------------------------------------------------
-    # OUTPUT
-    # --------------------------------------------------
-
-    st.subheader("Decision Outcome")
-
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        st.metric(
-            "Confidence",
-            f"{confidence:.2f}"
-        )
-
-    with col2:
-        st.metric(
-            "Escalation",
-            escalation
-        )
-
-    with col3:
-        st.metric(
-            "Human Approval",
-            approval
-        )
-
-    st.markdown("---")
-
-    st.subheader("Recommended Action")
-
-    if escalation == "REQUIRED":
-
-        st.warning(
-            """
-Executive alignment required before advancing commitment.
-
-Risk level exceeds autonomous execution threshold.
-            """
-        )
-
-    else:
-
-        st.success(
-            """
-Risk profile within acceptable threshold.
-
-Proceed with standard execution process.
-            """
-        )
-
-# --------------------------------------------------
-# ENTERPRISE DECISION LEDGER
-# --------------------------------------------------
-
-st.markdown("---")
-
-st.header("Enterprise Decision Ledger")
-
-df = pd.read_sql_query(
-    """
-    SELECT
-        id,
-        decision_description,
-        opportunity_value,
-        stakeholder_risk,
-        technical_complexity,
-        deadline_hours,
-        confidence,
-        escalation,
-        approval
-    FROM decisions
-    ORDER BY id DESC
-    """,
-    conn
-)
-
-st.dataframe(
-    df,
-    use_container_width=True
-)
-
-# --------------------------------------------------
-# DATABASE CONNECTION
-# --------------------------------------------------
-
-conn = sqlite3.connect(
-    "decisions.db",
-    check_same_thread=False
-)
-
-cursor = conn.cursor()
-
-# --------------------------------------------------
-# DECISION MEMORY TABLE
-# --------------------------------------------------
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS decisions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    decision_description TEXT,
-    opportunity_value REAL,
-    stakeholder_risk TEXT,
-    technical_complexity TEXT,
-    deadline_hours INTEGER,
-    confidence REAL,
-    escalation TEXT,
-    approval TEXT
-)
-""")
-
-conn.commit()
-
-# --------------------------------------------------
-# PAGE HEADER
-# --------------------------------------------------
-
-st.title("EDI Labs")
-
-st.subheader(
-    "Enterprise Decision Infrastructure"
-)
-
-st.write(
-    "Trust, Memory and Execution Layer for Autonomous Enterprises"
-)
-
-st.markdown("---")
-
-# --------------------------------------------------
-# ENTERPRISE CONTEXT
-# --------------------------------------------------
-
-st.header("Enterprise Context")
-
-decision_description = st.text_input(
-    "Decision Description",
-    placeholder="Approve Strategic Partner Agreement"
-)
-
-opportunity_value = st.number_input(
-    "Opportunity Value ($)",
-    min_value=0,
-    value=2500000
-)
-
-stakeholder_risk = st.selectbox(
-    "Stakeholder Risk",
-    ["Low", "Medium", "High"]
-)
-
-technical_complexity = st.selectbox(
-    "Technical Complexity",
-    ["Low", "Medium", "High"]
-)
-
-deadline_hours = st.number_input(
-    "Deadline (Hours)",
-    min_value=1,
-    value=48
-)
-
-st.markdown("---")
-
-# --------------------------------------------------
-# EVALUATE DECISION
-# --------------------------------------------------
-
-if st.button("Evaluate Decision"):
-
-    st.subheader("Decision Evaluation")
-
-    st.code(
-f"""
-INPUT
-
-decision_description  {decision_description}
-
-opportunity_value     ${opportunity_value:,.0f}
-
-stakeholder_risk      {stakeholder_risk.upper()}
-
-technical_complexity  {technical_complexity.upper()}
-
-deadline_hours        {deadline_hours}
-"""
-    )
-
-    st.subheader("Decision Evaluation Pipeline")
-
-    st.success("✓ Enterprise Context Ingested")
-
-    st.success("✓ Confidence Evaluation Completed")
-
-    st.success("✓ Trust Controls Applied")
-
-    st.success("✓ Escalation Assessment Completed")
-
-    st.success("✓ Human Oversight Requirement Determined")
-
-    # --------------------------------------------------
-    # CONFIDENCE LOGIC
-    # --------------------------------------------------
-
-    if stakeholder_risk == "High":
-        confidence = 0.61
-
-    elif stakeholder_risk == "Medium":
-        confidence = 0.78
-
-    else:
-        confidence = 0.92
-
-    # --------------------------------------------------
-    # ESCALATION LOGIC
-    # --------------------------------------------------
-
-    threshold = 0.75
-
-    if confidence < threshold:
-        escalation = "REQUIRED"
-    else:
-        escalation = "NOT REQUIRED"
-
-    # --------------------------------------------------
-    # HUMAN APPROVAL
-    # --------------------------------------------------
-
-    if stakeholder_risk == "High":
-        approval = "REQUIRED"
-    else:
-        approval = "OPTIONAL"
-
-    # --------------------------------------------------
-    # SAVE DECISION TO MEMORY
-    # --------------------------------------------------
-
-    cursor.execute(
-        """
-        INSERT INTO decisions (
-            decision_description,
-            opportunity_value,
-            stakeholder_risk,
-            technical_complexity,
-            deadline_hours,
-            confidence,
-            escalation,
-            approval
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        """,
-        (
-            decision_description,
-            opportunity_value,
-            stakeholder_risk,
-            technical_complexity,
-            deadline_hours,
-            confidence,
-            escalation,
-            approval
-        )
-    )
-
-    conn.commit()
-
-    st.success("Decision Saved To Enterprise Decision Ledger")
-
-    st.markdown("---")
-
-    # --------------------------------------------------
-    # OUTPUT
-    # --------------------------------------------------
-
-    st.subheader("Decision Outcome")
-
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        st.metric(
-            "Confidence",
-            f"{confidence:.2f}"
-        )
-
-    with col2:
-        st.metric(
-            "Escalation",
-            escalation
-        )
-
-    with col3:
-        st.metric(
-            "Human Approval",
-            approval
-        )
-
-    st.markdown("---")
-
-    st.subheader("Recommended Action")
-
-    if escalation == "REQUIRED":
-
-        st.warning(
-            """
-Executive alignment required before advancing commitment.
-
-Risk level exceeds autonomous execution threshold.
-            """
-        )
-
-    else:
-
-        st.success(
-            """
-Risk profile within acceptable threshold.
-
-Proceed with standard execution process.
-            """
-        )
-
-# --------------------------------------------------
-# ENTERPRISE DECISION LEDGER
-# --------------------------------------------------
-
-st.markdown("---")
-
-st.header("Enterprise Decision Ledger")
-
-df = pd.read_sql_query(
-    """
-    SELECT
-        id,
-        decision_description,
-        opportunity_value,
-        stakeholder_risk,
-        technical_complexity,
-        deadline_hours,
-        confidence,
-        escalation,
-        approval
-    FROM decisions
-    ORDER BY id DESC
-    """,
-    conn
-)
-
-st.dataframe(
-    df,
-    use_container_width=True
-)
