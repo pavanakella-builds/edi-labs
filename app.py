@@ -137,21 +137,16 @@ st.caption(
     "Exploring whether organizations need systems of record for decisions in the age of autonomous AI."
 )
 
-st.markdown(
-    """
+st.markdown("""
 ### Organizations have systems of record for:
 
-• Customers
-
-• Transactions
-
-• Work
-
-• Data
+- Customers
+- Transactions
+- Work
+- Data
 
 # They do not have systems of record for decisions.
-"""
-)
+""")
 
 st.info(
     """
@@ -403,7 +398,9 @@ Examples:
 
 This will become the retrieval layer for organizational decision memory.
 """
-    )st.info(
+    ) 
+    
+    st.info(
     """
 Future Enterprise Retrieval Layer
 
