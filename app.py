@@ -134,16 +134,19 @@ st.subheader(
 )
 
 st.caption(
-    "Exploring whether organizations need systems of record for decisions in the age of autonomous AI."
+    "Testing the hypothesis that autonomous enterprises will require systems of record for decisions, just as they require systems of record for customers, transactions, work, and data."
 )
 
 st.markdown("""
 ### Organizations have systems of record for:
 
-- Customers
-- Transactions
-- Work
-- Data
+• Customers (CRM)
+
+• Transactions (ERP)
+
+• Work (Project Systems)
+
+• Data (Data Platforms)
 
 # They do not have systems of record for decisions.
 """)
