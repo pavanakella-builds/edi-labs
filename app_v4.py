@@ -26,70 +26,19 @@ cursor = conn.cursor()
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS learning_records (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-
     title TEXT,
-    category TEXT,
-    impact TEXT,
-    confidence INTEGER,
-    owner TEXT,
-
     situation TEXT,
     decision TEXT,
     assumptions TEXT,
-
     expected_outcome TEXT,
     actual_outcome TEXT,
-
-    success_rating TEXT,
-
     learning TEXT,
     evidence TEXT,
-
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 """)
 
 conn.commit()
-
-try:
-    cursor.execute(
-        "ALTER TABLE learning_records ADD COLUMN success_rating TEXT"
-    )
-    conn.commit()
-except:
-    pass
-
-try:
-    cursor.execute(
-        "ALTER TABLE learning_records ADD COLUMN category TEXT"
-    )
-    conn.commit()
-except:
-    pass
-
-try:
-    cursor.execute(
-        "ALTER TABLE learning_records ADD COLUMN impact TEXT"
-    )
-    conn.commit()
-except:
-    pass
-
-try:
-    cursor.execute(
-        "ALTER TABLE learning_records ADD COLUMN confidence INTEGER"
-    )
-    conn.commit()
-except:
-    pass
-
-try:
-    cursor.execute(
-        "ALTER TABLE learning_records ADD COLUMN owner TEXT"
-    )
-    conn.commit()
-except:
-        pass
 
 # --------------------------------------------------
 # FUNCTIONS
@@ -102,16 +51,11 @@ def load_records():
         SELECT
             id,
             title,
-            category,
-            impact,
-            confidence,
-            owner,
             situation,
             decision,
             assumptions,
             expected_outcome,
             actual_outcome,
-            success_rating,
             learning,
             evidence,
             created_at
@@ -124,10 +68,6 @@ def load_records():
 
 def save_learning_record(
     title,
-    category,
-    impact,
-    confidence,
-    owner,
     situation,
     decision,
     assumptions,
@@ -139,31 +79,21 @@ def save_learning_record(
         """
         INSERT INTO learning_records (
             title,
-            category,
-            impact,
-            confidence,
-            owner,
             situation,
             decision,
             assumptions,
             expected_outcome,
             evidence
         )
-        
-        VALUES (?, ?, ?, ?, ?, ?,?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?)
         """,
         (
             title,
-            category,
-            impact,
-            confidence,
-            owner,
             situation,
             decision,
             assumptions,
             expected_outcome,
             evidence
-
         )
     )
 
@@ -173,26 +103,23 @@ def save_learning_record(
 def update_outcome(
     record_id,
     actual_outcome,
-    success_rating,
     learning
 ):
 
     cursor.execute(
-    """
-    UPDATE learning_records
-    SET
-        actual_outcome = ?,
-        success_rating = ?,
-        learning = ?
-    WHERE id = ?
-    """,
-    (
-        actual_outcome,
-        success_rating,
-        learning,
-        record_id
+        """
+        UPDATE learning_records
+        SET
+            actual_outcome = ?,
+            learning = ?
+        WHERE id = ?
+        """,
+        (
+            actual_outcome,
+            learning,
+            record_id
+        )
     )
-)
 
     conn.commit()
 
@@ -252,74 +179,12 @@ st.markdown("---")
 # TABS
 # --------------------------------------------------
 
-
-# --------------------------------------------------
-# EXECUTIVE DASHBOARD
-# --------------------------------------------------
-
-df = load_records()
-
-total_decisions = len(df)
-
-total_reviews = len(
-    df[df["actual_outcome"].notna()]
-)
-
-total_learnings = len(
-    df[df["learning"].notna()]
-)
-
-coverage = round(
-    (total_learnings / max(total_decisions, 1)) * 100
-)
-
-success_count = len(
-    df[
-        df["success_rating"].isin(
-            [
-                "Exceeded Expectations",
-                "Met Expectations"
-            ]
-        )
-    ]
-)
-
-success_rate = round(
-    success_count /
-    max(total_reviews, 1) * 100
-)
-
-col1, col2, col3, col4, col5 = st.columns(5)
-
-with col1:
-    st.metric("Decisions", total_decisions)
-
-with col2:
-    st.metric("Reality Checks", total_reviews)
-
-with col3:
-    st.metric("Learnings", total_learnings)
-
-with col4:
-    st.metric(
-        "Memory Coverage",
-        f"{coverage}%"
-    )
-
-with col5:
-    st.metric(
-        "Success Rate",
-        f"{success_rate}%"
-    )
-
-st.markdown("---")
-
 tab1, tab2, tab3, tab4 = st.tabs(
     [
-        "Decision Workspace",
+        "Decision Record",
         "Decision Memory",
-        "Decision Analysis",
-        "Decision Intelligence"
+        "Reality Check",
+        "Ask EDI"
     ]
 )
 
@@ -330,42 +195,6 @@ tab1, tab2, tab3, tab4 = st.tabs(
 with tab1:
 
     st.header("The Decision Record")
-
-    
-    category = st.selectbox(
-    "Decision Category",
-    [
-        "Strategic Partnership",
-        "Enterprise AI",
-        "Vendor Selection",
-        "Technology Adoption",
-        "Product Launch",
-        "Capital Allocation",
-        "Hiring"
-    ]
-)
-
-    impact = st.selectbox(
-    "Business Impact",
-    [
-        "Low",
-        "Medium",
-        "High",
-        "Critical"
-    ]
-)
-
-    confidence = st.slider(
-    "Decision Confidence",
-    0,
-    100,
-    70
-)
-
-    owner = st.text_input(
-    "Decision Owner",
-    placeholder="Strategy Team"
-)
 
     title = st.text_input(
         "Decision Title",
@@ -451,10 +280,6 @@ Links, research, decks, documents, supporting information.
 
             save_learning_record(
                 title,
-                category,
-                impact,
-                confidence,
-                owner,
                 situation,
                 decision,
                 assumptions,
@@ -482,20 +307,9 @@ with tab2:
     )
 
     st.dataframe(
-    df[
-        [
-            "id",
-            "title",
-            "owner"
-            "category",
-            "impact",
-            "confidence",
-            "success_rating",
-            "created_at"
-        ]
-    ],
-    use_container_width=True
-)
+        df,
+        use_container_width=True
+    )
 
 # ==================================================
 # TAB 3
@@ -538,18 +352,6 @@ with tab3:
             if pd.isna(selected["actual_outcome"])
             else selected["actual_outcome"]
         )
-        
-        success_rating = st.selectbox(
-    "Outcome Rating",
-    [
-        "Exceeded Expectations",
-        "Met Expectations",
-        "Partially Successful",
-        "Failed"
-    ]
-)
-
-
 
         learning = st.text_area(
             "Learning",
@@ -566,7 +368,6 @@ with tab3:
             update_outcome(
                 record_id,
                 actual_outcome,
-                success_rating,
                 learning
             )
 

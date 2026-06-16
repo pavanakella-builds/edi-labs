@@ -1,167 +1,68 @@
-<<<<<<< HEAD
-\# EDI Labs
+# EDI Labs
 
+## Live Prototype
 
+🚀 https://edi-labs-cpggxzfdjgds8vkpctbq5y.streamlit.app
 
-\## Enterprise Decision Infrastructure
+---
 
+# Enterprise Decision Infrastructure
 
+Organizations have systems of record for:
 
-Trust, Memory and Execution Layer for Autonomous Enterprises
-
-
-
-\### Problem
-
-
-
-Enterprises have systems of record for:
-
-
-
-\* Data
-
-\* Transactions
-
-\* Customers
-
-\* Work
-
-
+* Customers (CRM)
+* Transactions (ERP)
+* Work (Project Systems)
+* Data (Data Platforms)
 
 They do not have systems of record for decisions.
 
+As organizations deploy increasingly autonomous AI systems, decisions become distributed across humans, software, workflows, and intelligent agents.
 
+Yet most organizations struggle to answer:
 
-\### Prototype
+* Why was a decision made?
+* Which assumptions informed it?
+* What outcome occurred?
+* What was learned?
+* What should future teams know?
 
+EDI Labs is exploring whether autonomous enterprises will require systems of record for decisions in the same way they require systems of record for customers, transactions, work, and data.
 
+---
 
-The Enterprise Decision Ledger demonstrates:
+## Current Exploration
 
+The current prototype focuses on Organizational Decision Memory.
 
+It captures:
 
-\* Enterprise Context Ingestion
+* Decision Context
+* Assumptions
+* Expected Outcomes
+* Actual Outcomes
+* Organizational Learning
 
-\* Decision Evaluation
+The goal is not documentation.
 
-\* Confidence Scoring
+The goal is institutional learning.
 
-\* Trust Controls
+---
 
-\* Escalation Routing
-
-\* Human Oversight
-
-\* Persistent Decision Memory
-
-
-
-\### Vision
-
-
+## Long-Term Vision
 
 Decision Memory
 
-
-
 ↓
-
-
 
 Decision Intelligence
 
-
-
 ↓
-
-
 
 Organizational Intelligence
 
+---
 
+## Core Question
 
-=======
-\# EDI Labs
-
-
-
-\## Enterprise Decision Infrastructure
-
-
-
-Trust, Memory and Execution Layer for Autonomous Enterprises
-
-
-
-\### Problem
-
-
-
-Enterprises have systems of record for:
-
-
-
-\* Data
-
-\* Transactions
-
-\* Customers
-
-\* Work
-
-
-
-They do not have systems of record for decisions.
-
-
-
-\### Prototype
-
-
-
-The Enterprise Decision Ledger demonstrates:
-
-
-
-\* Enterprise Context Ingestion
-
-\* Decision Evaluation
-
-\* Confidence Scoring
-
-\* Trust Controls
-
-\* Escalation Routing
-
-\* Human Oversight
-
-\* Persistent Decision Memory
-
-
-
-\### Vision
-
-
-
-Decision Memory
-
-
-
-↓
-
-
-
-Decision Intelligence
-
-
-
-↓
-
-
-
-Organizational Intelligence
-
-
-
->>>>>>> 50f210bd86963ebefbf3865fa381bafd35c9adc3
+Will autonomous enterprises require Enterprise Decision Infrastructure?
