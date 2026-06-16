@@ -481,21 +481,30 @@ with tab2:
         len(df)
     )
 
+    display_cols = [
+        "id",
+        "title",
+        "owner",
+        "category",
+        "impact",
+        "confidence",
+        "success_rating",
+        "created_at"
+    ]
+
+    available_cols = [
+        c for c in display_cols
+        if c in df.columns
+    ]
+
+    st.write("DEBUG COLUMNS")
+    st.write(df.columns.tolist())
+
     st.dataframe(
-    df[
-        [
-            "id",
-            "title",
-            "owner"
-            "category",
-            "impact",
-            "confidence",
-            "success_rating",
-            "created_at"
-        ]
-    ],
-    use_container_width=True
-)
+        df[available_cols],
+        use_container_width=True
+    )
+   
 
 # ==================================================
 # TAB 3
