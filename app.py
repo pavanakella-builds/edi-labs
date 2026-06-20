@@ -477,6 +477,7 @@ Links, research, decks, documents, supporting information.
             st.success(
                 "Decision Record Created"
             )
+            st.rerun()
 
 # ==================================================
 # TAB 2
@@ -509,47 +510,10 @@ with tab2:
         if c in df.columns
     ]
 
-    st.write("DEBUG COLUMNS")
-    st.write(df.columns.tolist())
-
     st.dataframe(
         df[available_cols],
         use_container_width=True
     )
-   
-   with tab2:
-
-    st.header("Decision Repository")
-
-    df = load_records()
-
-    st.metric(
-        "Total Decision Records",
-        len(df)
-    )
-
-    display_cols = [
-        "id",
-        "title",
-        "owner",
-        "category",
-        "impact",
-        "confidence",
-        "success_rating",
-        "created_at"
-    ]
-
-    available_cols = [
-        c for c in display_cols
-        if c in df.columns
-    ]
-
-    st.dataframe(
-        df[available_cols],
-        use_container_width=True
-    )
-
-    # EXPORT DECISION MEMORY
 
     csv = df.to_csv(index=False)
 
@@ -559,7 +523,6 @@ with tab2:
         "decision_memory.csv",
         "text/csv"
     )
-
 # ==================================================
 # TAB 3
 # ==================================================
@@ -588,6 +551,14 @@ with tab3:
         ].iloc[0]
 
         st.subheader(selected["title"])
+
+        created_date = str(
+        selected["created_at"]
+        ).split(" ")[0]
+
+        st.caption(
+            f"Created: {created_date}"
+)
 
         st.write("### Decision")
         st.write(selected["decision"])
