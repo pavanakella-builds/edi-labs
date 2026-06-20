@@ -16,12 +16,24 @@ st.set_page_config(
 # DATABASE
 # --------------------------------------------------
 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent
+DB_PATH = BASE_DIR / "edis.db"
+
 conn = sqlite3.connect(
-    "edis.db",
+    DB_PATH,
     check_same_thread=False
 )
-
 cursor = conn.cursor()
+
+import os
+
+backup_dir = BASE_DIR / "backups"
+
+backup_dir.mkdir(
+    exist_ok=True
+)
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS learning_records (
@@ -505,6 +517,48 @@ with tab2:
         use_container_width=True
     )
    
+   with tab2:
+
+    st.header("Decision Repository")
+
+    df = load_records()
+
+    st.metric(
+        "Total Decision Records",
+        len(df)
+    )
+
+    display_cols = [
+        "id",
+        "title",
+        "owner",
+        "category",
+        "impact",
+        "confidence",
+        "success_rating",
+        "created_at"
+    ]
+
+    available_cols = [
+        c for c in display_cols
+        if c in df.columns
+    ]
+
+    st.dataframe(
+        df[available_cols],
+        use_container_width=True
+    )
+
+    # EXPORT DECISION MEMORY
+
+    csv = df.to_csv(index=False)
+
+    st.download_button(
+        "Export Decision Memory",
+        csv,
+        "decision_memory.csv",
+        "text/csv"
+    )
 
 # ==================================================
 # TAB 3
